@@ -3,6 +3,7 @@ import { FaSearch, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axiosConfig';
 import AddUserModal from '../components/AddUserModal';
+import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import EditUserModal from '../components/EditUserModal';
 import Pagination from '../components/Pagination';
 import UserTable from '../components/UserTable';
@@ -18,6 +19,9 @@ const DashboardPage = () => {
     const [isAddModalOpen, setAddModalOpen] = useState(false);
     const [isEditModalOpen, setEditModalOpen] = useState(false);
     const [currentUserToEdit, setCurrentUserToEdit] = useState(null);
+    const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [userToDelete, setUserToDelete] = useState(null);
+
 
     const [searchQuery, setSearchQuery] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
@@ -67,13 +71,22 @@ const DashboardPage = () => {
         }
 };
 
-    const handleDeleteUser = async (userId) => {
-        if (window.confirm('Are you sure you want to delete this user?')) {
+    const handleDeleteUser = (user) => {
+        setUserToDelete(user);
+        setDeleteModalOpen(true);
+    };
+
+    const confirmDelete = async () => {
+        if (userToDelete) {
             try {
-                await api.delete(`/users/${userId}`);
-                setUsers(users.filter((u) => u._id !== userId));
+                await api.delete(`/users/${userToDelete._id}`);
+                setUsers(prevUsers => prevUsers.filter(u => u._id !== userToDelete._id));
             } catch (err) {
                 setError('Failed to delete user.');
+            } finally {
+                // Close the modal and reset the state
+                setDeleteModalOpen(false);
+                setUserToDelete(null);
             }
         }
     };
@@ -149,6 +162,12 @@ const DashboardPage = () => {
                     onUserUpdated={handleDataChanged}
                 />
             )}
+            <ConfirmDeleteModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => setDeleteModalOpen(false)}
+                onConfirm={confirmDelete}
+                message="Are you sure you want to delete this user? This action cannot be undone."
+            />
         </div>
     );
 };

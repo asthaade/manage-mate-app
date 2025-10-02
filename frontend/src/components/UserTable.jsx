@@ -15,16 +15,16 @@ const ContactTable = ({ users, onEdit, onDelete }) => {
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                    {users.map((contact, index) => (
-                        <tr key={contact._id}>
+                    {users.map((user, index) => (
+                        <tr key={user._id}>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{index + 1}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{`${contact.firstName} ${contact.lastName}`}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{contact.phone}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{contact.email}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(contact.createdAt).toLocaleDateString()}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{`${user.firstName} ${user.lastName}`}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.phone}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(user.createdAt).toLocaleDateString()}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-4">
-                                <button onClick={() => onEdit(contact)} className="text-indigo-600 hover:text-indigo-900"><FaEdit /></button>
-                                <button onClick={() => onDelete(contact._id)} className="text-red-600 hover:text-red-900"><FaTrash /></button>
+                                <button onClick={() => onEdit(user)} className="text-indigo-600 hover:text-indigo-900"><FaEdit /></button>
+                                <button onClick={() => onDelete(user)} className="text-red-600 hover:text-red-900"><FaTrash /></button>
                             </td>
                         </tr>
                     ))}
