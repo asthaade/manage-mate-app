@@ -1,3 +1,5 @@
+
+
 # ManageMate - MERN User Management Dashboard
 
 ManageMate is a full-stack web application built with the MERN stack (MongoDB, Express, React, Node.js). It provides a secure system where an admin can register, log in, and manage a private list of users through a full-featured dashboard.
@@ -86,3 +88,8 @@ JWT_SECRET=your_super_secret_jwt_key
 
 # The port for the backend server to run on
 PORT=7777
+ ```
+
+## Contact
+
+Astha Ade - [GitHub](https://github.com/asthaade) - [LinkedIn](https://www.linkedin.com/in/astha-ade-7167aa24b)
